@@ -300,14 +300,14 @@ function Account({ prop }) {
                                             <Tab eventKey="pending" title="Pending">
                                                 <PurchaseItem type="Pending" />
                                             </Tab>
-                                            <Tab eventKey="toreceive" title="To Receive">
+                                            <Tab eventKey="toshipping" title="To Shipping">
                                                 <PurchaseItem type="Shipping" />
+                                            </Tab>
+                                            <Tab eventKey="toreceive" title="To Receive">
+                                                <PurchaseItem type="Receive" />
                                             </Tab>
                                             <Tab eventKey="completed" title="Completed">
                                                 <PurchaseItem type="Done" />
-                                            </Tab>
-                                            <Tab eventKey="cancelled" title="Cancelled">
-                                                <PurchaseItem type="cancelled" />
                                             </Tab>
                                         </Tabs>
                                     </Container>

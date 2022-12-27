@@ -24,6 +24,7 @@ function Categories() {
             API.get('/v1/product/getAllProductType')
                 .then((res) => {
                     setCategories(res.data);
+                    console.log('res.data', res.data);
                 })
                 .catch((err) => console.log(err));
         };

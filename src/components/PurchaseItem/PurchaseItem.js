@@ -12,7 +12,26 @@ function PurchaseItem({ type }) {
     const API = axios.create({
         baseURL: BASE_API_URL,
     });
-
+    const handleConfirm = (order) => {
+        axios
+            .post(
+                BASE_API_URL + 'v1/order/updateStatus',
+                {
+                    orderId: order?.orderResponseDto?.orderId,
+                    statusId: '4',
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    },
+                },
+            )
+            .then((res) => {
+                console.log('d', res.data);
+            })
+            .catch((err) => console.log(err));
+    };
     useEffect(() => {
         API.get(`v1/order/getOrderByUserId?userId=${localStorage.getItem('userId')}`, {
             headers: {
@@ -27,7 +46,11 @@ function PurchaseItem({ type }) {
                 } else {
                     let list = [];
                     res.data.filter((item) => {
-                        return item.orderResponseDto.orderStatus === type;
+                        console.log(item.orderResponseDto.orderStatus, type);
+                        if (item.orderResponseDto.orderStatus === type) {
+                            console.log('item', item);
+                            list.push(item);
+                        }
                     });
                     setListOrder(list);
                     console.log('list order', list, type);
@@ -50,8 +73,20 @@ function PurchaseItem({ type }) {
                             <h4>Address Shipping: {item?.orderResponseDto.address}</h4>
                             <h3 className="fw-bold">Total: {item?.orderResponseDto.total} VND</h3>
                         </div>
-                        <div className={`${item?.orderResponseDto.orderStatus.toLowerCase()}`}>
-                            {item?.orderResponseDto.orderStatus}
+                        <div>
+                            <div
+                                className={`${item?.orderResponseDto.orderStatus.toLowerCase()} mb-3`}
+                            >
+                                {item?.orderResponseDto.orderStatus}
+                            </div>
+                            {item.orderResponseDto.orderStatus === 'Receive' && (
+                                <Button
+                                    className="fs-4 btn-danger "
+                                    onClick={() => handleConfirm(item)}
+                                >
+                                    Xác nhận
+                                </Button>
+                            )}
                         </div>
                     </div>
                     {item?.listProduct?.map((product) => {

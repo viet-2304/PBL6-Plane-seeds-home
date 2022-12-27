@@ -50,7 +50,10 @@ function Dashboard() {
             .catch((err) => console.log('111', err));
         // Get number of product
         axios
-            .get(BASE_API_URL + 'v1/product/getAllProduct')
+            .get(
+                BASE_API_URL +
+                    `v1/product/getProductByShop?shopId=${localStorage.getItem('shopId')}`,
+            )
             .then((res) => {
                 setNumberProduct(res.data.length);
             })

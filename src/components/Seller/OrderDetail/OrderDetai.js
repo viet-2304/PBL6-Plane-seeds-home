@@ -16,7 +16,6 @@ function OrderDetail() {
     const location = useLocation();
 
     const pages = location.pathname.split('/').splice(1);
-    const status = 'Shipping';
     let total = 0;
     const handleConfirm = () => {
         axios
@@ -61,28 +60,19 @@ function OrderDetail() {
                     <div className="title">Status</div>
                 </div>
                 <div className="detail-container">
-                    {/* <div className={`detail ${order?.orderResponseDto?.orderStatus.toLowerCase()}`}>
+                    <div className={`detail ${order?.orderResponseDto?.orderStatus.toLowerCase()}`}>
                         {order?.orderResponseDto?.orderStatus}
-                    </div> */}
-                    <div className={`detail ${status.toLowerCase()}`}>{status}</div>
+                    </div>
                     <div className="detail d-flex justify-content-between">
-                        {/* {order?.orderResponseDto?.orderStatus === 'Pending' &&
+                        {order?.orderResponseDto?.orderStatus === 'Pending' &&
                             'Vui lòng chờ xác nhận từ quản trị viên và chuẩn bị kiện hàng sẵn sàn nhé.'}
                         {order?.orderResponseDto?.orderStatus === 'To Shipping' &&
                             'Vui lòng bấm xác nhận khi đã chuẩn bị xong kiện hàng.'}
                         {order?.orderResponseDto?.orderStatus === 'To Receive' &&
                             'Vui lòng chờ người nhận xác nhận đã nhận hàng thành công.'}
                         {order?.orderResponseDto?.orderStatus === 'Done' &&
-                            'Xin chúc mừng bạn, kiện hàng đã được giao thành công. Vui lòng chờ trong vài ngày để nhận thanh toán.'} */}
-                        {status === 'Pending' &&
-                            'Vui lòng chờ xác nhận từ quản trị viên và chuẩn bị kiện hàng sẵn sàn nhé.'}
-                        {status === 'Shipping' &&
-                            'Vui lòng bấm xác nhận khi đã chuẩn bị xong kiện hàng.'}
-                        {status === 'Receive' &&
-                            'Vui lòng chờ người nhận xác nhận đã nhận hàng thành công.'}
-                        {status === 'Done' &&
                             'Xin chúc mừng bạn, kiện hàng đã được giao thành công. Vui lòng chờ trong vài ngày để nhận thanh toán.'}
-                        {status === 'Shipping' && (
+                        {order?.orderResponseDto?.orderStatus === 'Shipping' && (
                             <Button className="fs-4 btn-danger " onClick={() => handleConfirm()}>
                                 Xác nhận
                             </Button>
