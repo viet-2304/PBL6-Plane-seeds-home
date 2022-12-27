@@ -51,7 +51,11 @@ function SellerHeader() {
                 <div className="items">
                     <div className="item">
                         <image
-                            src={shop?.imageUrl ? shop?.imageUrl : ''}
+                            src={
+                                shop?.imageUrl
+                                    ? shop?.imageUrl
+                                    : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f'
+                            }
                             alt=""
                             className="avatar"
                         />

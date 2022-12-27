@@ -24,7 +24,6 @@ function Profile() {
         handleUpload(image, setURL);
     };
     const handleUpdateShop = () => {
-        console.log('shop', shop);
         axios
             .post(BASE_API_URL + 'v1/shop/updateShop', shop, {
                 headers: {
@@ -108,7 +107,10 @@ function Profile() {
                         <div className="wrapper">
                             <Image
                                 className="shop-logo "
-                                src={shop?.imageUrl ? shop?.imageUrl : ''}
+                                src={
+                                    URL ||
+                                    'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f'
+                                }
                                 alt="imageuser"
                             />
 

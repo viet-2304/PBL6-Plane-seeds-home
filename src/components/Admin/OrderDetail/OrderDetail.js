@@ -67,11 +67,11 @@ function OrderDetail() {
                     </div>
                     <div className="detail d-flex justify-content-between">
                         {order?.orderResponseDto?.orderStatus == 'Pending' &&
-                            'Vui lòng chờ xác nhận từ quản trị viên và chuẩn bị kiện hàng sẵn sàn nhé.'}
+                            'Đơn hàng đang chờ xác nhận'}
                         {order?.orderResponseDto?.orderStatus == 'Shipping' &&
-                            'Vui lòng bấm xác nhận khi đã chuẩn bị xong kiện hàng.'}
+                            'Đơn hàng đã được chuyển đến người bán '}
                         {order?.orderResponseDto?.orderStatus == 'Receive' &&
-                            'Vui lòng chờ người nhận xác nhận đã nhận hàng thành công.'}
+                            'Đơn hàng đã được nhận hàng.'}
                         {order?.orderResponseDto?.orderStatus == 'Done' &&
                             'Xin chúc mừng bạn, kiện hàng đã được giao thành công. Vui lòng chờ trong vài ngày để nhận thanh toán.'}
 

@@ -37,9 +37,9 @@ function SliderProduct({ items, title }) {
                                 <ProductCard
                                     title={item.productDto.productName}
                                     image={
-                                        item.productDto.imagesUrl
+                                        item.productDto?.imagesUrl !== []
                                             ? item.productDto.imagesUrl[0]
-                                            : ''
+                                            : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultproduct.png?alt=media&token=0491d08d-0f8b-401d-a76e-1bacaa5a2705'
                                     }
                                     price={item.productDto.price}
                                     to={`/products/${item.productDto.productType}/${item.productDto.productId}`}

@@ -149,7 +149,7 @@ function AppHeader() {
                                     src={
                                         currentUser.imageAvatar
                                             ? currentUser.imageAvatar
-                                            : 'https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+                                            : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f'
                                     }
                                     alt=""
                                     className="avatar"
@@ -166,7 +166,7 @@ function AppHeader() {
                                     src={
                                         currentUser.imageAvatar
                                             ? currentUser.imageAvatar
-                                            : 'https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+                                            : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f'
                                     }
                                     alt=""
                                     className="avatar"

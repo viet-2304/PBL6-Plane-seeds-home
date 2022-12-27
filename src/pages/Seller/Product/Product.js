@@ -123,7 +123,11 @@ function Product({ prop }) {
             selector: (row) => (
                 <div className="wrapper">
                     <img
-                        src={row.imagesUrl !== [] ? row.imagesUrl[0] : ''}
+                        src={
+                            row.imagesUrl !== []
+                                ? row.imagesUrl[0]
+                                : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultproduct.png?alt=media&token=0491d08d-0f8b-401d-a76e-1bacaa5a2705'
+                        }
                         alt=""
                         className="image"
                     />

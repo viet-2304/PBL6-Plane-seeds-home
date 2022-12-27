@@ -60,7 +60,11 @@ function PurchaseItem({ type }) {
                                 <div className="col-md-2">
                                     <Image
                                         className="item-img"
-                                        src={product?.imagesUrl}
+                                        src={
+                                            product?.imagesUrl
+                                                ? product?.imagesUrl
+                                                : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultproduct.png?alt=media&token=0491d08d-0f8b-401d-a76e-1bacaa5a2705'
+                                        }
                                         alt="anh"
                                         width={110}
                                         height={110}

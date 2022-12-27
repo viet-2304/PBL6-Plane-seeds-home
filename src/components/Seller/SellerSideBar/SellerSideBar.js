@@ -1,16 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useLocation } from 'react-router-dom';
-import {
-    Flower1,
-    Receipt,
-    PeopleFill,
-    Shop,
-    BoxArrowRight,
-    Envelope,
-    HouseHeartFill,
-    EmojiSunglasses,
-} from 'react-bootstrap-icons';
+import { Flower1, Receipt, PeopleFill, HouseHeartFill } from 'react-bootstrap-icons';
 
 import './SellerSideBar.scss';
 import { useState } from 'react';
@@ -27,6 +18,7 @@ function SellerSideBar() {
     const handleClick = (e) => {
         setIsActive(e);
     };
+    const handleLogout = () => {};
     console.log('rerender', isActive);
 
     return (
@@ -86,9 +78,12 @@ function SellerSideBar() {
                             <span>Profile</span>
                         </li>
                     </NavLink>
-                    <li>
-                        <span>Logout</span>
-                    </li>
+                    <NavLink onClick={() => handleLogout()}>
+                        {/* to="/seller/profile" */}
+                        <li>
+                            <span>Logout</span>
+                        </li>
+                    </NavLink>
                 </ul>
             </div>
         </div>

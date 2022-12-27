@@ -54,7 +54,7 @@ function Shop() {
                         src={
                             shop?.image
                                 ? shop.image
-                                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU"'
+                                : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f'
                         }
                         alt="imageshop"
                     />

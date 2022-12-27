@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Container } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
 import styles from './Products.module.scss';
@@ -17,6 +17,24 @@ function Products() {
     const [productById, setProductById] = useState([]);
     const [productsByCategory, setProductsByCategory] = useState([]);
     const location = useLocation();
+    const handleSort = (e) => {
+        const value = e.target.value;
+        switch (value) {
+            case 'price_low':
+                setProductsByCategory([...productsByCategory.sort((a, b) => a.price - b.price)]);
+                break;
+            case 'price_high':
+                setProductsByCategory([...productsByCategory.sort((a, b) => b.price - a.price)]);
+                break;
+            case 'latest':
+                setProductsByCategory([
+                    ...productsByCategory.sort((a, b) => a.productId - b.productId),
+                ]);
+                break;
+            default:
+                setProductsByCategory(productsByCategory);
+        }
+    };
 
     const API = axios.create({
         baseURL: BASE_API_URL,
@@ -95,7 +113,21 @@ function Products() {
 
     return (
         <Container className={cx('container')}>
-            <Breadcrumbs />
+            <div className="d-flex justify-content-between">
+                <Breadcrumbs />
+                <Form.Select
+                    size="md"
+                    style={{ width: '150px', height: '40px' }}
+                    onChange={handleSort}
+                    className="fs-4 mt-5 "
+                >
+                    <option value="all">sort</option>
+                    <option value="price_low">price (low to high)</option>
+                    <option value="price_high">price (high to low)</option>
+                    <option value="latest">latest</option>
+                </Form.Select>
+            </div>
+
             {pages.length === 3 ? (
                 <ProductDetail />
             ) : (

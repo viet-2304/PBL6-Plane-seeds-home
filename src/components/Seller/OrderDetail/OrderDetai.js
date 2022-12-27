@@ -12,7 +12,7 @@ import { useLocation } from 'react-router-dom';
 import BASE_API_URL from '../../../api/api';
 import './OrderDetail.scss';
 function OrderDetail() {
-    const [order, setOrder] = useState(['']);
+    const [order, setOrder] = useState([{}]);
     const location = useLocation();
 
     const pages = location.pathname.split('/').splice(1);
@@ -111,7 +111,7 @@ function OrderDetail() {
                 <div className="title-container">
                     <Image
                         className="user-image me-3"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU"
+                        src="https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultuser.png?alt=media&token=da4c4242-2573-4c9a-b6cb-68673c9c547f"
                         alt="imageuser"
                     />
                     <div className="title">{order?.orderResponseDto?.userName}</div>

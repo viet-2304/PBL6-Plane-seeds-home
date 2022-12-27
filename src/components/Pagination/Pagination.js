@@ -30,8 +30,11 @@ function Pagination({ title, data, numberPerPage }) {
                             <ProductCard
                                 id={product.productId}
                                 title={product.productName}
-                                // image="https://product.hstatic.net/1000269461/product/hat-giong-bap-ngot-pn_d20b175577684dcba3c57167006ee34a_medium.png"
-                                image={product.imagesUrl ? product.imagesUrl[0] : ''}
+                                image={
+                                    product.imagesUrl
+                                        ? product.imagesUrl[0]
+                                        : 'https://firebasestorage.googleapis.com/v0/b/plant-seeds-home.appspot.com/o/images%2Fdefaultproduct.png?alt=media&token=0491d08d-0f8b-401d-a76e-1bacaa5a2705'
+                                }
                                 price={product.price}
                                 to={`/products/${product.productType}/${product.productId}`}
                                 button
