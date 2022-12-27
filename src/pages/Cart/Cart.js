@@ -12,14 +12,17 @@ import { Link } from 'react-router-dom';
 
 function Cart() {
     console.log('render');
+    const navigate = useNavigate();
     const [cartItems, setCartItems] = useState();
     const [reload, setReload] = useState(false);
     const API = axios.create({
         baseURL: BASE_API_URL,
     });
     const handleChangeQuantity = () => {
-        // window.location.reload();
         setReload(!reload);
+    };
+    const handleViewShop = (shipId) => {
+        navigate(`/shop/${shipId}`);
     };
     const handleDelete = (cartId) => {
         axios
@@ -70,7 +73,10 @@ function Cart() {
                                     <div className="card-header d-flex justify-content-between">
                                         <div className="fw-bold text-black d-flex align-items-center">
                                             {item?.shopName}
-                                            <Button className="ms-5 btn-outline-success px-4 py-2">
+                                            <Button
+                                                className="ms-5 btn-outline-success px-4 py-2"
+                                                onClick={() => handleViewShop(item?.shopId)}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faShop}
                                                     className="pe-2"

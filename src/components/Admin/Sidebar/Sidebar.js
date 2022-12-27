@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTruckFast } from '@fortawesome/free-solid-svg-icons';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import './Sidebar.scss';
@@ -18,7 +18,9 @@ import {
 import logo from '../../../assets/images/logo-brand.png';
 
 function SideBar() {
+    const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
     const location = useLocation();
+    const navigate = useNavigate();
 
     const pages = location.pathname.split('/').splice(1);
     console.log(pages);
@@ -30,6 +32,13 @@ function SideBar() {
         setIsActive(e);
     };
     console.log('rerender', isActive);
+    const handleLogout = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        sessionStorage.clear();
+        setCurrentToken(localStorage.getItem('token'));
+        navigate('/');
+    };
 
     return (
         <div className="sidebar py-5 d-lg-flex flex-column bg-white shadow">
@@ -92,10 +101,10 @@ function SideBar() {
                             <span>Customers</span>
                         </li>
                     </NavLink>
-                    <p className="title">STORE</p>
+                    <p className="title">SHOP</p>
                     <NavLink
                         onClick={() => handleClick('store')}
-                        to="/admin/store"
+                        to="/admin/shop"
                         className={isActive === 'store' ? 'activeBtn' : ''}
                     >
                         <li>
@@ -104,7 +113,7 @@ function SideBar() {
                         </li>
                     </NavLink>
 
-                    <li>
+                    <li onClick={handleLogout}>
                         <BoxArrowRight />
                         <span>Logout</span>
                     </li>

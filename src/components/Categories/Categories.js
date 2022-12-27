@@ -32,7 +32,7 @@ function Categories() {
 
     return (
         <Container fluid className="category-container px-0 py-5">
-            <div className="container-xl px-0 pb-2 d-flex flex-row justify-content-between align-items-center">
+            <div className="container-xl px-0 pb-2 d-flex flex-row justify-content-between align-items-center mt-3">
                 <h1 className="ps-4 fw-bold mb-3 mt-3">Shop plants by categories</h1>
 
                 <Button
@@ -42,13 +42,19 @@ function Categories() {
                     <span>Show All Plants</span>
                 </Button>
             </div>
-            <div className="container-xl px-4 pb-2 d-flex flex-row justify-content-center align-items-center">
+            <div className="container-xl px-4 pb-2 d-flex flex-row justify-content-center align-items-center mb-4">
                 <Row>
                     {categories.map((item, index) => (
                         <Col md={3} sm={6} key={item.productTypeId}>
                             <CategoryItem item={item} index={index} />
                         </Col>
                     ))}
+                    {/* <Col md={2} sm={6} key={5}>
+                        <CategoryItem item={{ name: 'Cây Cảnh' }} index={3} />
+                    </Col>
+                    <Col md={2} sm={6} key={5}>
+                        <CategoryItem item={{ name: 'Cây Cảnh' }} index={3} />
+                    </Col> */}
                 </Row>
             </div>
         </Container>

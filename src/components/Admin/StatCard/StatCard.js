@@ -10,10 +10,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import routes from '../../../config/routes';
 import './StatCard.scss';
 
-const StatCard = ({ type, bg }) => {
+const StatCard = ({ type, bg, link }) => {
     let data;
 
     //temporary
@@ -25,7 +26,7 @@ const StatCard = ({ type, bg }) => {
             data = {
                 title: 'CUSTOMERS',
                 isMoney: false,
-                link: <Link to="/admin/customers">See all customers</Link>,
+                link: <Link to={link}>See all customers</Link>,
                 icon: (
                     <FontAwesomeIcon
                         icon={faUser}
@@ -42,7 +43,7 @@ const StatCard = ({ type, bg }) => {
             data = {
                 title: 'ORDERS',
                 isMoney: false,
-                link: <Link to="/admin/orders">See all orders</Link>,
+                link: <Link to={link}>See all orders</Link>,
                 icon: (
                     <FontAwesomeIcon
                         icon={faCartShopping}
@@ -59,7 +60,7 @@ const StatCard = ({ type, bg }) => {
             data = {
                 title: 'STORE',
                 isMoney: true,
-                link: <Link to="/admin/store">See all store</Link>,
+                link: <Link to={link}>See all store</Link>,
                 icon: (
                     <FontAwesomeIcon
                         icon={faShop}
@@ -76,7 +77,7 @@ const StatCard = ({ type, bg }) => {
             data = {
                 title: 'DELIVERY',
                 isMoney: true,
-                link: <Link to="/admin/delivery">See all delivery</Link>,
+                link: <Link to={link}>See all delivery</Link>,
                 icon: (
                     <FontAwesomeIcon
                         icon={faTruckFast}
@@ -93,7 +94,7 @@ const StatCard = ({ type, bg }) => {
             data = {
                 title: 'PRODUCTS',
                 isMoney: true,
-                link: <Link to="/admin/products">See all products</Link>,
+                link: <Link to={link}>See all products</Link>,
                 icon: (
                     <FontAwesomeIcon
                         icon={faSeedling}

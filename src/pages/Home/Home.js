@@ -37,25 +37,25 @@ function Home() {
                 .catch((err) => console.log('c', err));
         };
         fetchCurrentUser();
-        // const fetchProductList = () => {
-        //     API.get('v1/product/getAllProduct')
-        //         .then((res) => {
-        //             setProducts(res.data);
-        //         })
-        //         .catch((err) => console.log(err));
-        // };
-        // fetchProductList();
+        const fetchProductList = () => {
+            API.get('v1/product/getAllProduct')
+                .then((res) => {
+                    setProducts(res.data);
+                })
+                .catch((err) => console.log(err));
+        };
+        fetchProductList();
     }, []);
     return (
         <div>
             <div className={cx('wrapper')}>
                 <Categories />
-                {/* <SliderProduct items={products} title={'New products'}></SliderProduct> */}
+                <SliderProduct items={products} title={'Products Best Seller'}></SliderProduct>
             </div>
             {/* floating icon */}
             <div className={cx('icons')}>
                 <ul>
-                    <a href="">
+                    <a href="" >
                         <li className={cx('facebook')}>
                             <FontAwesomeIcon icon={faFacebook}></FontAwesomeIcon>
                         </li>
@@ -75,7 +75,7 @@ function Home() {
                             <FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="" >
                         <li className={cx('instagram')}>
                             <FontAwesomeIcon icon={faInstagram}></FontAwesomeIcon>
                         </li>

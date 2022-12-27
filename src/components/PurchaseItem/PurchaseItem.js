@@ -1,76 +1,92 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShop, faTruckFast, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card, Image } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import BASE_API_URL from '../../api/api';
+import axios from 'axios';
 
 import './PurchaseItem.scss';
 
 function PurchaseItem() {
-    return (
-        <Card className="card-purchase">
-            <Card.Body>
-                <div className="card-header d-flex justify-content-between">
-                    <div className="fw-bold text-black d-flex align-items-center">
-                        Plant Shop
-                        <Button className="ms-5 btn-outline-success px-4 py-2">
-                            <FontAwesomeIcon icon={faShop}></FontAwesomeIcon> View Shop
-                        </Button>
-                    </div>
-                    <div className="text-success">
-                        <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon> Completed
-                    </div>
-                </div>
-                <div className="card-content border-bottom border-secondary d-flex py-3">
-                    <div className="col-md-2">
-                        <Image
-                            className="item-img"
-                            src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            alt="anh"
-                            width={110}
-                            height={110}
-                        />
-                    </div>
-                    <div className="col-md-8">
-                        <div className="row">
-                            <div className=" text-black h2">Name item</div>
-                            <div>In Door</div>
-                            <div className="text-black">x1</div>
-                        </div>
-                    </div>
-                    <div className="d-flex fw-bold col-md-2 align-items-center justify-content-end text-danger">
-                        10000 VND
-                    </div>
-                </div>
-                <div className="card-content border-bottom border-secondary d-flex py-3">
-                    <div className="col-md-2">
-                        <Image
-                            className="item-img"
-                            src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            alt="anh"
-                            width={110}
-                            height={110}
-                        />
-                    </div>
-                    <div className="col-md-8">
-                        <div className="row">
-                            <div className=" text-black h2">Name item</div>
-                            <div>In Door</div>
-                            <div className="text-black">x1</div>
-                        </div>
-                    </div>
-                    <div className="d-flex fw-bold col-md-2 align-items-center justify-content-end text-danger">
-                        10000 VND
-                    </div>
-                </div>
-                <div className="card-footer d-flex justify-content-between py-4 px-4">
-                    <div className="btn-delete">
-                        <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
-                    </div>
+    const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
+    const [currentUser, setCurrentUser] = useState({});
+    const [listOrder, setListOrder] = useState();
+    const API = axios.create({
+        baseURL: BASE_API_URL,
+    });
 
-                    <div className="text-white display-6 ">Total: 10000 VND</div>
-                </div>
-            </Card.Body>
-        </Card>
-    );
+    useEffect(() => {
+        API.get(`v1/order/getOrderByUserId?userId=${localStorage.getItem('userId')}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+            },
+        })
+            .then((res) => {
+                setListOrder(res.data);
+
+                console.log('list order', res.data);
+            })
+            .catch((err) => console.log('err', err));
+    }, []);
+    let count = 0;
+    return listOrder?.map((item) => {
+        count += 1;
+        return (
+            <Card className="card-purchase mb-3" key={item?.orderResponseDto.orderId}>
+                <Card.Body>
+                    <div className="card-header d-flex justify-content-between">
+                        <div className="fw-bold text-black d-block align-items-center">
+                            <h2>Order: {count}</h2>
+                            <h4>Created date: {item?.orderResponseDto.createDate.split('T')[0]}</h4>
+                            <h4>Order Status: {item?.orderResponseDto.orderStatus}</h4>
+                            <h4>Payment method: {item?.orderResponseDto.paymentMethod}</h4>
+                            <h4>Address Shipping: {item?.orderResponseDto.address}</h4>
+                            <h3 className="fw-bold">Total: {item?.orderResponseDto.total} VND</h3>
+                        </div>
+                        <div className="text-success">
+                            <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon> Completed
+                        </div>
+                    </div>
+                    {item?.listProduct?.map((product) => {
+                        return (
+                            <div className="card-content border-bottom border-secondary d-flex py-3">
+                                <div className="col-md-2">
+                                    <Image
+                                        className="item-img"
+                                        src={product?.imagesUrl}
+                                        alt="anh"
+                                        width={110}
+                                        height={110}
+                                    />
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="row">
+                                        <div className=" text-black h2">{product?.productName}</div>
+                                        <div> {product?.shopName}</div>
+                                        <div className="text-black">x{product?.number}</div>
+                                    </div>
+                                </div>
+                                <div className="d-flex fw-bold col-md-2 align-items-center justify-content-end text-danger">
+                                    {product?.total}
+                                </div>
+                            </div>
+                        );
+                    })}
+
+                    <div className="card-footer d-flex justify-content-between py-4 px-4">
+                        <div className="btn-delete">
+                            <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
+                        </div>
+
+                        <div className="text-white display-6 ">
+                            Total: {item?.orderResponseDto.total} VND
+                        </div>
+                    </div>
+                </Card.Body>
+            </Card>
+        );
+    });
 }
 
 export default PurchaseItem;

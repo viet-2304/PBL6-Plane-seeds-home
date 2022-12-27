@@ -1,34 +1,29 @@
-import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
-import { Trash } from "react-bootstrap-icons";
+import { useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { Trash } from 'react-bootstrap-icons';
 
-const CustomerRow = ({ customer, handleDelete }) => {
-    const isTester = useSelector((state) => state.currentUser?.firstName);
+const CustomerRow = ({ customer }) => {
+    // const isTester = useSelector((state) => state.currentUser?.firstName);
     return (
-        <tr className="text-center align-middle">
-            <td>{customer.userId}</td>
-            <td>{`${customer.firstName} ${customer.lastName}`}</td>
+        <tr className="text-center align-middle fs-4">
+            <td>{customer.phoneNumber}</td>
             <td id="emailBar">{customer.email}</td>
-            <td className="d-none d-md-table-cell">
-                {customer.dateCreate.split("T")[0]}
-            </td>
+            <td>{customer.address}</td>
+            <td>{customer.active}</td>
+            <td>{customer.userName}</td>
             <td>
-                <Button
-                    variant="link"
-                    href={`/customers/update?userId=${customer.userId}`}
-                >
+                <img
+                    src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
+                    width={40}
+                    alt=""
+                ></img>
+            </td>
+            <td>{customer.roleId}</td>
+            <td>
+                <Button variant="link fs-4" href={`/admin/customers/update/${customer.id}`}>
                     EDIT
                 </Button>
-                <Button
-                    variant="link"
-                    onClick={() =>
-                        isTester === "test"
-                            ? alert(
-                                  "You are with a test account, only get requests allowed"
-                              )
-                            : handleDelete(customer.userId)
-                    }
-                >
+                <Button variant="link fs-4">
                     <Trash color="FIreBrick" />
                 </Button>
             </td>

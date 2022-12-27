@@ -25,10 +25,23 @@ function SellerHeader() {
             })
             .then((res) => {
                 setShop(res.data);
-                console.log(res.data);
+                console.log('shop', res.data);
                 localStorage.setItem('shopId', res.data.shopId);
             })
             .catch(() => navigate('/seller/register'));
+
+        // axios
+        //     .get(BASE_API_URL + 'v1/orderStatus/getAll', {
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
+        //         },
+        //     })
+        //     .then((res) => {
+        //         console.log('status', res.data);
+        //     })
+        //     .catch((err) => console.log('err', err));
+
         // } else navigate('/seller/register');
     }, []);
     return (

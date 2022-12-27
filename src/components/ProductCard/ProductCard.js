@@ -8,7 +8,6 @@ import Button from '../Button/Button.js';
 import './ProductCard.scss';
 
 function ProductCard({ id, to, title, price, image }) {
-    const [isShowToast, setIsShowToast] = useState(false);
     const handleAddToCart = () => {
         axios
             .post(
@@ -28,7 +27,9 @@ function ProductCard({ id, to, title, price, image }) {
             .then((res) => {
                 console.log('OK');
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                alert(err.response.data);
+            });
     };
     return (
         <div

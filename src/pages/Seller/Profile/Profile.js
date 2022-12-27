@@ -1,87 +1,121 @@
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Container, Form, Image } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Container, Form, Image, Modal } from 'react-bootstrap';
+
 import BASE_API_URL from '../../../api/api';
 import Button from '../../../components/Button/Button';
 import './Profile.scss';
+import handleUpload from '../../../api/firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 function Profile() {
-    const [url, setURL] = useState('');
+    const [URL, setURL] = useState('');
     const [shop, setShop] = useState({});
     const [image, setImage] = useState(document.querySelector('#file'));
+    const [isShow, setIsShow] = useState(false);
+
     const onFileChange = (e) => {
         if (e.target && e.target.files[0]) {
             setImage(e.target.files[0]);
         }
     };
-    const handleClick = () => {
-        // axios
-        //     .post(BASE_API_URL + 'v1/shop/updateShop', shop, {
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
-        //         },
-        //     })
-        //     .then(() => {
-        //         console.log('OK');
-        //     })
-        //     .catch((err) => console.log('err', err));
-        let formData = new FormData();
-        formData.append('image', image);
-
+    const handleUpdateImage = () => {
+        handleUpload(image, setURL);
+    };
+    const handleUpdateShop = () => {
+        console.log('shop', shop);
         axios
-            .post(BASE_API_URL + 'v1/product/addProductImage', formData, {
+            .post(BASE_API_URL + 'v1/shop/updateShop', shop, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                },
+            })
+            .then(() => {
+                console.log('OK');
+            })
+            .catch((err) => console.log('err', err));
+    };
+    useEffect(() => {
+        axios
+            .get(BASE_API_URL + `v1/shop/getShopByUser?userId=${localStorage.getItem('userId')}`, {
+                headers: {
+                    'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
                 },
             })
             .then((res) => {
-                console.log(res.data, 'OK');
-                setURL(res.data);
+                setShop(res.data);
+                console.log(res.data);
             })
             .catch((err) => console.log('err', err));
-    };
-    // useEffect(() => {
-    //     axios
-    //         .get(BASE_API_URL + `v1/shop/getShopByUser?userId=${localStorage.getItem('userId')}`, {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: 'Bearer ' + localStorage.getItem('token'),
-    //             },
-    //         })
-    //         .then((res) => {
-    //             setShop(res.data);
-    //             console.log(res.data);
-    //         })
-    //         .catch((err) => console.log('err', err));
-    // }, []);
+    }, []);
+    useEffect(() => {
+        setShop({ ...shop, imageUrl: URL });
+    }, [URL]);
     return (
         <Container className="profile-container col px-4">
+            <Modal show={isShow} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton onHide={() => setIsShow(false)}>
+                    <Modal.Title id="contained-modal-title-vcenter modal-title text-align-center">
+                        <h3 className="fw-bolder text-align-center align-self-center">
+                            Choose a file
+                        </h3>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <Form.Group
+                            id="formFile"
+                            className="mt-3 d-flex flex-column justify-content-center "
+                        >
+                            <div className="d-flex ">
+                                <Form.Control
+                                    type="file"
+                                    id="file"
+                                    name="file"
+                                    size="lg"
+                                    multiple={false}
+                                    onChange={onFileChange}
+                                    className="me-5"
+                                />
+                                <Button cart onClick={() => handleUpdateImage()}>
+                                    Choose this file
+                                </Button>
+                            </div>
+                            <img
+                                src={shop?.imageUrl ? shop?.imageUrl : ''}
+                                alt=""
+                                className="image-product mt-3"
+                            />
+                        </Form.Group>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary py-2 px-4 fs-3" onClick={() => setIsShow(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" className="pe-5 me-5 fs-3" onClick={() => {}}>
+                        Save
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="top-info">Profile</div>
             <div className="info">
                 <div className="row my-5 ">
                     <div className="col image">
-                        <Image
-                            className="shop-logo me-3"
-                            src={
-                                url ||
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU'
-                            }
-                            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU"
-                            alt="imageuser"
-                        />
-                        <Form.Group id="formFile" className="mt-3">
-                            <Form.Control
-                                type="file"
-                                id="file"
-                                name="file"
-                                size="lg"
-                                multiple={false}
-                                onChange={onFileChange}
+                        <div className="wrapper">
+                            <Image
+                                className="shop-logo "
+                                src={shop?.imageUrl ? shop?.imageUrl : ''}
+                                alt="imageuser"
                             />
-                        </Form.Group>
+
+                            <button class="file-upload" onClick={() => setIsShow(true)}>
+                                <FontAwesomeIcon icon={faArrowUp} className="icon" />
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="row my-5">
@@ -160,30 +194,10 @@ function Profile() {
                         />
                     </div>
                 </div>
-                {/* <div className="row my-5">
-                    <label htmlFor="logoShop" className="col-sm-3 form-label ">
-                        Logo
-                    </label>
-                    <div className="col-sm-9">
-                        <div className="row">
-                            <div className="col me-5">
-                                <Form.Group controlId="formFile" className="mt-3">
-                                    <Form.Control type="file" size="lg" multiple={false} />
-                                </Form.Group>
-                            </div>
-                            <div className="col ">
-                                <Image
-                                    className="shop-logo me-3"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU"
-                                    alt="imageuser"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+
                 <div className="row my-5">
                     <div className="d-flex justify-content-center ">
-                        <Button cart onClick={() => handleClick()}>
+                        <Button cart onClick={() => handleUpdateShop()}>
                             Save
                         </Button>
                     </div>

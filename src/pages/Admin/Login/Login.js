@@ -38,11 +38,11 @@ const Login = () => {
             });
     };
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('token')) {
-    //         navigate(routes.dashboardAdmin);
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate(routes.dashboardAdmin);
+        }
+    }, []);
     return (
         <Container
             fluid

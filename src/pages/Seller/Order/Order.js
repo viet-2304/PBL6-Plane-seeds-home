@@ -9,11 +9,10 @@ import axios from 'axios';
 import BASE_API_URL from '../../../api/api';
 import DataTable from 'react-data-table-component';
 import { SortDown } from 'react-bootstrap-icons';
-import movies from '../../../assets/movies';
 import Button from '../../../components/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import ProductForm from '../../../components/Seller/ProductForm/ProductForm';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import OrderDetail from '../../../components/Seller/OrderDetail/OrderDetai';
 
 function Order({ prop }) {
     const [orderData, setOrderData] = useState();
@@ -26,6 +25,7 @@ function Order({ prop }) {
     useEffect(() => {
         API.get(`v1/order/getOrderByShopId?shopId=${localStorage.getItem('shopId')}`, {
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         })
@@ -84,15 +84,7 @@ function Order({ prop }) {
             name: 'Customer',
             selector: (row) => (
                 <div className="cellWrapper">
-                    <span className="pe-2">{row.customer}</span>
-                    <img
-                        src={
-                            row.imageURL ||
-                            'https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1'
-                        }
-                        alt=""
-                        className="image"
-                    />
+                    <span className="pe-3">{row.customer}</span>
                 </div>
             ),
             sortable: true,
@@ -108,7 +100,7 @@ function Order({ prop }) {
             sortable: true,
         },
         {
-            name: 'Payment',
+            name: 'Payment Method',
             selector: (row) => (
                 <div className={row.payment === 'Thanh toán bằng tiền mặt' ? 'cash' : 'paypal'}>
                     {row.payment === 'Thanh toán bằng tiền mặt' ? 'Cash' : 'Paypal'}
@@ -118,15 +110,15 @@ function Order({ prop }) {
         },
         {
             name: 'Status',
-            selector: (row) => row.status,
+            selector: (row) => <div className={row.status.toLowerCase()}>{row.status}</div>,
             sortable: true,
         },
         {
             name: 'Action',
             selector: (row) => (
                 <div className="action-row">
-                    <Button className="icon-view" to={`/seller/order/${row?.id}`}>
-                        <FontAwesomeIcon icon={faSearch} />
+                    <Button className="icon-view" to={`/seller/order/detail/${row?.id}`}>
+                        <FontAwesomeIcon icon={faEye} />
                     </Button>
                 </div>
             ),
@@ -159,7 +151,7 @@ function Order({ prop }) {
 
             {prop === 'detail' && (
                 <div className="mx-5">
-                    <ProductForm />
+                    <OrderDetail />
                 </div>
             )}
         </div>

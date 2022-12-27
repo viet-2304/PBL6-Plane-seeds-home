@@ -27,6 +27,8 @@
         "datatable": "^2.0.2",
         "datatables.net": "^1.13.1",
         "datatables.net-dt": "^1.13.1",
+        "firebase": "^9.15.0",
+        "firebase-tools": "^11.19.0",
         "jquery": "^3.6.1",
         "moment": "^2.29.4",
         "normalize.css": "^8.0.1",
@@ -49,6 +51,7 @@
         "recharts": "^2.2.0",
         "styled-components": "^5.3.6",
         "web-vitals": "^2.1.0",
+        "xlsx": "^0.18.5",
         "yarn": "^1.22.19",
         "yup": "^0.32.11"
     },

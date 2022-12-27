@@ -14,8 +14,6 @@ function ProductDetail() {
     const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
     const [productById, setProductById] = useState([]);
-    const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
-    const [currentUser, setCurrentUser] = useState({});
 
     const pages = location.pathname.split('/').splice(1);
     const API = axios.create({
@@ -33,56 +31,40 @@ function ProductDetail() {
             .post(
                 BASE_API_URL + 'v1/cart/addToCart',
                 {
-                    userId: currentUser.id,
-                    numberOfProduct: quantity,
+                    id: '',
+                    userId: localStorage.getItem('userId'),
+                    number: quantity,
                     productId: productById.productId,
                 },
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + currentToken,
+                        Authorization: 'Bearer ' + localStorage.getItem('token'),
                     },
                 },
             )
             .then((res) => {
                 console.log('OK');
             })
-            .catch((err) => console.log(err));
+            .catch((err) => alert(err.response.data));
     };
     useEffect(() => {
         const fetchProdutList = () => {
             API.get(`v1/product/getProduct?id=${pages[pages.length - 1]}`)
                 .then((res) => {
                     setProductById(res.data);
-                    console.log('product', productById);
+                    console.log('product', res.data);
                 })
                 .catch((err) => console.log(err));
         };
         fetchProdutList();
-        const fetchCurrentUser = () => {
-            API.get('v1/users/getCurrentUser', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + currentToken,
-                },
-            })
-                .then((res) => {
-                    setCurrentUser(res.data);
-                    console.log('res1: ', res.data);
-                })
-                .catch((err) => console.log('c', err));
-        };
-        fetchCurrentUser();
     }, []);
     return (
         <Container fluid className="detail-container mb-3 ">
             <div className="container-detail">
                 <div className="details" key="1">
                     <div className="big-img">
-                        <img
-                            src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            alt=""
-                        />
+                        <img src={productById?.imagesUrl ? productById?.imagesUrl[0] : ''} alt="" />
                     </div>
 
                     <div className="box">
@@ -95,9 +77,13 @@ function ProductDetail() {
                             <div className="d-flex justify-content-center align-items-center">
                                 <Dash size="30px" onClick={() => handleQuantity('down')} />
                             </div>
-                            <p className="quantity d-inline-flex justify-content-center align-items-center border border-success rounded-3 mx-1">
-                                {quantity}
-                            </p>
+                            <input
+                                type="number"
+                                className="quantity d-inline-flex justify-content-center align-items-center border border-success rounded-3 mx-1"
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                            />
+
                             <div className="d-flex justify-content-center align-items-center">
                                 <Plus size="30px" onClick={() => handleQuantity('up')} />
                             </div>
@@ -107,7 +93,9 @@ function ProductDetail() {
                                 cart
                                 small
                                 onClick={() =>
-                                    currentToken ? handleAddToCart() : navigate('/login')
+                                    localStorage.getItem('token')
+                                        ? handleAddToCart()
+                                        : navigate('/login')
                                 }
                             >
                                 ADD TO CART

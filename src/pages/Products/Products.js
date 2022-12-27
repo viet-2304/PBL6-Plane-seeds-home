@@ -41,6 +41,7 @@ function Products() {
                 API.get('v1/product/getAllProduct')
                     .then((res) => {
                         setProductsByCategory(res.data);
+                        console.log(res.data);
                     })
                     .catch((err) => console.log(err));
             };

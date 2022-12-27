@@ -7,11 +7,11 @@ import './SliderProduct.scss';
 
 function SliderProduct({ items, title }) {
     return (
-        <Container fluid className="sliderItem-container px-0 py-5">
+        <Container fluid className="sliderItem-container px-0 py-5 mt-3">
             <div className="container-xl px-0 pb-2 d-flex flex-row justify-content-between align-items-center">
                 <h1 className="ps-4 fw-bold mb-3 mt-3 ">{title}</h1>
             </div>
-            <div className="container-xl px-0">
+            <div className="container-xl px-0 mb-5">
                 <Carousel
                     className="slide-space"
                     cols={4}
@@ -109,7 +109,7 @@ function SliderProduct({ items, title }) {
                             <Carousel.Item key={item.productId}>
                                 <ProductCard
                                     title={item.productName}
-                                    image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
+                                    image={item.imagesUrl ? item.imagesUrl[0] : ''}
                                     price={item.price}
                                     to={`/products/${item.productType}/${item.productId}`}
                                 />

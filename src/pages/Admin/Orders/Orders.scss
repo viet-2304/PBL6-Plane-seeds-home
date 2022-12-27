@@ -1,0 +1,36 @@
+.icon-view {
+    svg {
+        height: 1.5em;
+        color: #406a52;
+        &:hover {
+            cursor: pointer;
+            color: black;
+        }
+    }
+}
+.cellWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+.action-row {
+    width: fit-content;
+}
+.cash {
+    padding: 5px;
+    border-radius: 5px;
+    color: #406a52;
+    background-color: rgba(0, 128, 0, 0.151);
+}
+.paypal {
+    padding: 5px;
+    border-radius: 5px;
+    color: goldenrod;
+    background-color: rgba(189, 189, 3, 0.103);
+}

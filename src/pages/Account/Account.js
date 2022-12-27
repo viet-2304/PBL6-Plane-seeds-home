@@ -2,9 +2,10 @@ import { faFileLines, faUser, faPen, faKey } from '@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Container, Col, Row, Tab, Nav, Image, Tabs, Form } from 'react-bootstrap';
+import { Container, Col, Row, Tab, Nav, Image, Tabs, Form, Modal } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BASE_API_URL from '../../api/api';
+import handleUpload from '../../api/firebase';
 
 import Button from '../../components/Button/Button';
 import PurchaseItem from '../../components/PurchaseItem/PurchaseItem';
@@ -17,9 +18,13 @@ function Account({ prop }) {
     const handleSelect = (k) => {
         navigate(location.pathname.slice(0, location.pathname.indexOf(prop)) + k);
     };
+    const [isShow, setIsShow] = useState(true);
     const [reload, setReload] = useState(false);
     const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
     const [currentUser, setCurrentUser] = useState({});
+    const [image, setImage] = useState(document.querySelector('#file'));
+    const [URL, setURL] = useState('');
+
     const API = axios.create({
         baseURL: BASE_API_URL,
     });
@@ -39,9 +44,20 @@ function Account({ prop }) {
         };
         fetchCurrentUser();
     }, [reload]);
-    console.log('a', currentUser);
+    useEffect(() => {
+        setCurrentUser({ ...currentUser, imageUrl: URL });
+    }, [URL]);
+    console.log('URL', URL);
+    const onFileChange = (e) => {
+        if (e.target && e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    };
+    const handleUpdateImage = () => {
+        handleUpload(image, setURL);
+    };
 
-    const handleClick = () => {
+    const handleClick = (type) => {
         axios
             .post(BASE_API_URL + 'v1/users/editUser', currentUser, {
                 headers: {
@@ -58,6 +74,52 @@ function Account({ prop }) {
     };
     return (
         <Container fluid className="account-container py-5 ">
+            <Modal show={isShow} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton onHide={() => setIsShow(false)}>
+                    <Modal.Title id="contained-modal-title-vcenter modal-title text-align-center">
+                        <h3 className="fw-bolder text-align-center align-self-center">
+                            Choose a file
+                        </h3>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <Form.Group
+                            id="formFile"
+                            className="mt-3 d-flex flex-column justify-content-center "
+                        >
+                            <div className="d-flex ">
+                                <Form.Control
+                                    type="file"
+                                    id="file"
+                                    name="file"
+                                    size="lg"
+                                    multiple={false}
+                                    onChange={onFileChange}
+                                    className="me-5"
+                                />
+                                <Button cart onClick={() => handleUpdateImage()}>
+                                    Choose this file
+                                </Button>
+                            </div>
+                            <img
+                                src={currentUser?.imageUrl ? currentUser?.imageUrl : ''}
+                                // src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
+                                alt=""
+                                className="image-product mt-3"
+                            />
+                        </Form.Group>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary py-2 px-4 fs-3" onClick={() => setIsShow(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" className="pe-5 me-5 fs-3" onClick={() => {}}>
+                        Save
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Tab.Container
                 id="left-tabs-example"
                 activeKey={prop}
@@ -65,7 +127,7 @@ function Account({ prop }) {
             >
                 <div className="container-xl px-5 py-5">
                     <Row>
-                        <Col md={4} className="menu-col justify-content-center py-4">
+                        <Col md={4} className="menu-col justify-content-center py-4 shadow">
                             <Nav variant="pills" className="flex-column">
                                 <div className="user my-3 d-flex flex-row align-items-center justify-content-center ">
                                     <Image
@@ -75,12 +137,12 @@ function Account({ prop }) {
                                     />
                                     <div>
                                         <div className="user-name text-center">
-                                            Phan Thị Thu Sương
+                                            {currentUser.userName}
                                         </div>
-                                        <div className="text-center">
+                                        <button className="text-center">
                                             <FontAwesomeIcon icon={faPen} />
                                             Change Image
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -104,7 +166,7 @@ function Account({ prop }) {
                                 </Nav.Item>
                             </Nav>
                         </Col>
-                        <Col md={8} className="content-col">
+                        <Col md={8} className="content-col shadow">
                             <Tab.Content className="p-4 h-100">
                                 <Tab.Pane eventKey="profile">
                                     <Container className="col px-4">
@@ -293,13 +355,11 @@ function Account({ prop }) {
                                         >
                                             <Tab eventKey="all" title="All">
                                                 <PurchaseItem />
+                                                {/* <PurchaseItem /> */}
+                                            </Tab>
+
+                                            <Tab eventKey="pending" title="Pending">
                                                 <PurchaseItem />
-                                            </Tab>
-                                            <Tab eventKey="topay" title="To Pay">
-                                                ssdf
-                                            </Tab>
-                                            <Tab eventKey="toship" title="To Ship">
-                                                sdfd
                                             </Tab>
                                             <Tab eventKey="toreceive" title="To Receive">
                                                 sdfd

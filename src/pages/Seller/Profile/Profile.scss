@@ -19,6 +19,65 @@
             align-items: center;
             display: flex;
             flex-direction: column;
+            .wrapper {
+                position: relative;
+                height: fit-content;
+                width: fit-content;
+                .shop-logo {
+                    height: 80px;
+                    width: 80px;
+                    object-fit: cover;
+                    clip-path: circle(40px at 50% 50%);
+                    border: 1px solid #3f7652;
+                    border-radius: 50%;
+                }
+                .file-upload {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    z-index: 1;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    border: 4px solid #ffffff;
+                    overflow: hidden;
+                    background-image: linear-gradient(to bottom, #2590eb 50%, #ffffff 50%);
+                    background-size: 100% 200%;
+                    transition: all 1s;
+                    color: #ffffff;
+                    font-size: 100px;
+
+                    .icon {
+                        height: 15px;
+                        width: 15px;
+                        z-index: 11;
+                    }
+                    #formFile {
+                        height: 30px;
+                        width: 30px;
+                        cursor: pointer;
+                        opacity: 0;
+                        background-color: #000;
+                        input[type='file'] {
+                            height: 30px;
+                            width: 30px;
+                            cursor: pointer;
+                            z-index: 11;
+                            opacity: 0;
+                        }
+                    }
+
+                    &:hover {
+                        background-position: 0 -100%;
+                        color: #2590eb;
+                    }
+                }
+            }
         }
     }
     .form-control {
@@ -28,10 +87,4 @@
             box-shadow: 0 0 0 0.25rem #e5f0ea;
         }
     }
-}
-.shop-logo {
-    height: 80px;
-    width: 80px;
-    object-fit: cover;
-    clip-path: circle(40px at 50% 50%);
 }

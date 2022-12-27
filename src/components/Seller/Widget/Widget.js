@@ -10,11 +10,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './Widget.scss';
 
-const Widget = ({ type }) => {
+const Widget = ({ type, amount }) => {
     let data;
 
     //temporary
-    const amount = 100;
+    // const amount = 100;
     const diff = 20;
 
     switch (type) {
@@ -109,7 +109,8 @@ const Widget = ({ type }) => {
             <div className="left">
                 <span className="title">{data.title}</span>
                 <span className="counter">
-                    {data.isMoney && '$'} {amount}
+                    {amount}
+                    {/* {data.isMoney && 'VND'} */}
                 </span>
                 <span className="link">{data.link}</span>
             </div>

@@ -4,7 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logoSuccess from '../../assets/images/checked.png';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import routes from '../../config/routes';
+import './Thankpage.scss';
 function Thankpage() {
     const [show, setShow] = useState(true);
     return (
@@ -15,25 +17,25 @@ function Thankpage() {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="d-block">
-                        <div className="d-flex">
+                        <div className="d-flex justify-content-center">
                             <img src={logoSuccess} alt="" width={100} />
                         </div>
-                        <span className="text-center">Bạn đã thanh toán thành công !</span> <br />
-                        <span className="text-center">
-                            Cảm ơn bạn đã tin tưởng sử dụng của chúng tôi{' '}
-                            <FontAwesomeIcon icon={faHeart} />
-                        </span>
+                        <div className="text-center py-3">
+                            <span className="text-center">Bạn đã thanh toán thành công !</span>{' '}
+                            <br />
+                            <span className="text-center my-3">
+                                Cảm ơn bạn đã tin tưởng sử dụng sản phẩm của chúng tôi{' '}
+                                <FontAwesomeIcon icon={faHeart} />
+                            </span>
+                            <Button variant="py-2 px-5 fs-4 primary text-white bg-success mt-4">
+                                <Link to={routes.home} className="text-white">
+                                    Continue shopping
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
-                    <Button variant="py-3 px-2 fs-4 primary text-success">
-                        <Link to={'/'}></Link>
-                        Continue shopping
-                    </Button>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
+                <Modal.Footer></Modal.Footer>
             </Modal>
         </>
     );

@@ -15,6 +15,7 @@ function SellerRegister() {
         phoneNumber: '',
         email: '',
         userId: localStorage.getItem('userId'),
+        imageUrl: '',
     });
     const navigate = useNavigate();
 

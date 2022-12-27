@@ -34,3 +34,28 @@
     color: goldenrod;
     background-color: rgba(189, 189, 3, 0.103);
 }
+
+.shipping {
+    padding: 5px;
+    border-radius: 5px;
+    color: green;
+    background-color: rgba(0, 128, 0, 0.151);
+}
+.pending {
+    padding: 5px;
+    border-radius: 5px;
+    color: goldenrod;
+    background-color: rgba(189, 189, 3, 0.103);
+}
+.recieve {
+    padding: 5px;
+    border-radius: 5px;
+    color: cornflowerblue;
+    background-color: aliceblue;
+}
+.done {
+    padding: 5px;
+    border-radius: 5px;
+    color: #c13346;
+    background-color: #e98d9e;
+}

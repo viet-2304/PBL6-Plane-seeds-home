@@ -12,6 +12,7 @@ import BASE_API_URL from '../../api/api';
 import CartItem from './CartItem';
 
 function CartSidebar() {
+    const [number, setNumber] = useState(0);
     const [show, setShow] = useState(false);
     const [cartItems, setCartItems] = useState();
     const [reload, setReload] = useState(false);
@@ -52,15 +53,30 @@ function CartSidebar() {
         })
             .then((res) => {
                 setCartItems(res.data.listProduct);
+                setNumber(0);
+                res.data.listProduct?.map((item) => {
+                    item?.listProductAndNumberDto.map((product) => {
+                        console.log(parseInt(product?.numberOfProductInCart));
+                        setNumber((pre) => pre + parseInt(product?.numberOfProductInCart));
+                    });
+                });
                 console.log('cartItem1', res.data.listProduct);
             })
             .catch((err) => console.log('111', err));
     }, [reload, show]);
+    useEffect(() => {
+        // cartItems?.map((item) => {
+        //     item?.listProductAndNumberDto.map((product) => {
+        //         console.log(product?.numberOfProductInCart);
+        //         setNumber((pre) => pre + parseInt(product?.numberOfProductInCart));
+        //     });
+        // });
+    }, []);
     return (
         <>
             <div className="icon-cart" onClick={handleShow}>
                 <FontAwesomeIcon icon={faCartShopping} />
-                <div className="item-number">100</div>
+                <div className="item-number">{number}</div>
             </div>
 
             <Offcanvas show={show} onHide={handleClose} placement={'end'}>

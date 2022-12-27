@@ -17,7 +17,6 @@ function Register() {
     const navigate = useNavigate();
 
     const handleUserSignUp = (e) => {
-        e.preventDefault();
         axios
             .post(BASE_API_URL + 'v1/users/createUser', {
                 userName: username,

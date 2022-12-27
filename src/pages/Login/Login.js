@@ -11,8 +11,8 @@ import axios from 'axios';
 import './Login.scss';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('user05@gmail.com');
+    const [password, setPassword] = useState('user05');
     const navigate = useNavigate();
 
     const handleUserLogin = (e) => {
