@@ -10,7 +10,7 @@ import './Thankpage.scss';
 function Thankpage() {
     const [show, setShow] = useState(true);
     return (
-        <>
+        <div className='modal-container'>
             <Modal show={show} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
                     {/* <Modal.Title>Modal heading</Modal.Title> */}
@@ -37,7 +37,7 @@ function Thankpage() {
                 </Modal.Body>
                 <Modal.Footer></Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 }
 export default Thankpage;

@@ -38,9 +38,10 @@ function Home() {
         };
         fetchCurrentUser();
         const fetchProductList = () => {
-            API.get('v1/product/getAllProduct')
+            API.get('v1/product/getBestSeller')
                 .then((res) => {
                     setProducts(res.data);
+                    console.log('best', res.data);
                 })
                 .catch((err) => console.log(err));
         };
@@ -52,30 +53,29 @@ function Home() {
                 <Categories />
                 <SliderProduct items={products} title={'Products Best Seller'}></SliderProduct>
             </div>
-            {/* floating icon */}
             <div className={cx('icons')}>
                 <ul>
-                    <a href="" >
+                    <a href="/">
                         <li className={cx('facebook')}>
                             <FontAwesomeIcon icon={faFacebook}></FontAwesomeIcon>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li className={cx('twitter')}>
                             <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li className={cx('youtube')}>
                             <FontAwesomeIcon icon={faYoutube}></FontAwesomeIcon>
                         </li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li className={cx('linkedin')}>
                             <FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon>
                         </li>
                     </a>
-                    <a href="" >
+                    <a href="/">
                         <li className={cx('instagram')}>
                             <FontAwesomeIcon icon={faInstagram}></FontAwesomeIcon>
                         </li>

@@ -1,6 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useLocation } from 'react-router-dom';
+import {
+    Flower1,
+    Receipt,
+    PeopleFill,
+    Shop,
+    BoxArrowRight,
+    Envelope,
+    HouseHeartFill,
+    EmojiSunglasses,
+} from 'react-bootstrap-icons';
 
 import './SellerSideBar.scss';
 import { useState } from 'react';
@@ -30,7 +40,7 @@ function SellerSideBar() {
                         className={isActive === 'dashboard' ? 'activeBtn' : ''}
                     >
                         <li>
-                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                            <HouseHeartFill />
                             <span>Dashboard</span>
                         </li>
                     </NavLink>
@@ -41,7 +51,7 @@ function SellerSideBar() {
                         className={isActive === 'product' ? 'activeBtn' : ''}
                     >
                         <li>
-                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                            <Flower1 />
                             <span>Products</span>
                         </li>
                     </NavLink>
@@ -51,7 +61,7 @@ function SellerSideBar() {
                         className={isActive === 'order' ? 'activeBtn' : ''}
                     >
                         <li>
-                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                            <Receipt />
                             <span>Orders</span>
                         </li>
                     </NavLink>
@@ -61,7 +71,7 @@ function SellerSideBar() {
                         className={isActive === 'delivery' ? 'activeBtn' : ''}
                     >
                         <li>
-                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                            <FontAwesomeIcon icon={faTruckFast} className="icon" />
                             <span>Delivery</span>
                         </li>
                     </NavLink>
@@ -72,12 +82,11 @@ function SellerSideBar() {
                         className={isActive === 'profile' ? 'activeBtn' : ''}
                     >
                         <li>
-                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                            <PeopleFill />
                             <span>Profile</span>
                         </li>
                     </NavLink>
                     <li>
-                        <FontAwesomeIcon icon={faSearch} className="icon" />
                         <span>Logout</span>
                     </li>
                 </ul>

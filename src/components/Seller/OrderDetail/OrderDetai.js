@@ -88,9 +88,6 @@ function OrderDetail() {
                             </Button>
                         )}
                     </div>
-                    {/* {order?.orderResponseDto?.orderStatus === 'Shipping' && (
-                        <Button className="btn-danger">Xác nhận</Button>
-                    )} */}
                 </div>
             </div>
             <div className="sub-container my-3">

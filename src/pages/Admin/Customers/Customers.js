@@ -41,6 +41,16 @@ function Customers({ prop }) {
         getCustomerData();
     }, []);
 
+    // const handleDelete = (userId) => {
+    //     API.post(`/users/unActiveUser?userId=${userId}&isActive=${false}`)
+    //         .then((res) => {
+    //             setCustomers(res.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
+
     return (
         <Container className="customer mt-5">
             {prop === 'all' && (

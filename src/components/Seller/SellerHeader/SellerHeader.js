@@ -15,7 +15,7 @@ function SellerHeader() {
     const [shop, setShop] = useState({});
     console.log(localStorage.getItem('userId'), localStorage.getItem('token'));
     useEffect(() => {
-        // if (localStorage.getItem('shopId')) {
+        // if (localStorage.getItem('shopId) || localStorage.getItem('shopId') !== undefined) {
         axios
             .get(BASE_API_URL + `v1/shop/getShopByUser?userId=${localStorage.getItem('userId')}`, {
                 headers: {
@@ -28,21 +28,10 @@ function SellerHeader() {
                 console.log('shop', res.data);
                 localStorage.setItem('shopId', res.data.shopId);
             })
-            .catch(() => navigate('/seller/register'));
-
-        // axios
-        //     .get(BASE_API_URL + 'v1/orderStatus/getAll', {
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             Authorization: 'Bearer ' + localStorage.getItem('token'),
-        //         },
-        //     })
-        //     .then((res) => {
-        //         console.log('status', res.data);
-        //     })
-        //     .catch((err) => console.log('err', err));
-
-        // } else navigate('/seller/register');
+            .catch(() => {
+                alert('Tài khoản chưa đăng ký tài khoản người bán.');
+                navigate('/seller/register');
+            });
     }, []);
     return (
         <Container fluid className="seller-navbar">
@@ -61,9 +50,8 @@ function SellerHeader() {
                 </div>
                 <div className="items">
                     <div className="item">
-                        <img
-                            // src={shop?.image}
-                            src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        <image
+                            src={shop?.imageUrl ? shop?.imageUrl : ''}
                             alt=""
                             className="avatar"
                         />

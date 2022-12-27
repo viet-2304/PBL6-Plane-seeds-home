@@ -21,3 +21,35 @@
         }
     }
 }
+.shipping {
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    color: green;
+    background-color: rgba(0, 128, 0, 0.151);
+}
+.pending {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    color: goldenrod;
+    background-color: rgba(189, 189, 3, 0.103);
+}
+.receive {
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    color: cornflowerblue;
+    background-color: rgb(195, 220, 241);
+}
+.done {
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    color: #c13346;
+    background-color: #e98d9e;
+}

@@ -1,6 +1,8 @@
-.modal-header {
-    border-bottom: none !important;
-}
-.modal-footer {
-    border-top: none !important;
+.modal-container {
+    .modal.show .modal-dialog .modal-header {
+        border-bottom: none !important;
+    }
+    .modal-footer {
+        border-top: none !important;
+    }
 }

@@ -7,9 +7,7 @@ import axios from 'axios';
 
 import './PurchaseItem.scss';
 
-function PurchaseItem() {
-    const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
-    const [currentUser, setCurrentUser] = useState({});
+function PurchaseItem({ type }) {
     const [listOrder, setListOrder] = useState();
     const API = axios.create({
         baseURL: BASE_API_URL,
@@ -23,9 +21,17 @@ function PurchaseItem() {
             },
         })
             .then((res) => {
-                setListOrder(res.data);
-
-                console.log('list order', res.data);
+                if (type === 'all') {
+                    setListOrder(res.data);
+                    console.log('list order', res.data, type);
+                } else {
+                    let list = [];
+                    res.data.filter((item) => {
+                        return item.orderResponseDto.orderStatus === type;
+                    });
+                    setListOrder(list);
+                    console.log('list order', list, type);
+                }
             })
             .catch((err) => console.log('err', err));
     }, []);
@@ -44,8 +50,8 @@ function PurchaseItem() {
                             <h4>Address Shipping: {item?.orderResponseDto.address}</h4>
                             <h3 className="fw-bold">Total: {item?.orderResponseDto.total} VND</h3>
                         </div>
-                        <div className="text-success">
-                            <FontAwesomeIcon icon={faTruckFast}></FontAwesomeIcon> Completed
+                        <div className={`${item?.orderResponseDto.orderStatus.toLowerCase()}`}>
+                            {item?.orderResponseDto.orderStatus}
                         </div>
                     </div>
                     {item?.listProduct?.map((product) => {

@@ -31,87 +31,18 @@ function SliderProduct({ items, title }) {
                     ]}
                     mobileBreakpoint={400}
                 >
-                    {/* <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item>
-
-                    <Carousel.Item key="1">
-                        <ProductCard
-                            title="Cây cảnh"
-                            image="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
-                            price="1"
-                            to="product/1"
-                        />
-                    </Carousel.Item> */}
                     {items?.map((item) => {
                         return (
-                            <Carousel.Item key={item.productId}>
+                            <Carousel.Item key={item.productDto.productId}>
                                 <ProductCard
-                                    title={item.productName}
-                                    image={item.imagesUrl ? item.imagesUrl[0] : ''}
-                                    price={item.price}
-                                    to={`/products/${item.productType}/${item.productId}`}
+                                    title={item.productDto.productName}
+                                    image={
+                                        item.productDto.imagesUrl
+                                            ? item.productDto.imagesUrl[0]
+                                            : ''
+                                    }
+                                    price={item.productDto.price}
+                                    to={`/products/${item.productDto.productType}/${item.productDto.productId}`}
                                 />
                             </Carousel.Item>
                         );

@@ -123,11 +123,7 @@ function Product({ prop }) {
             selector: (row) => (
                 <div className="wrapper">
                     <img
-                        src={
-                            row.imagesUrl !== []
-                                ? row.imagesUrl[0]
-                                : 'https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1'
-                        }
+                        src={row.imagesUrl !== [] ? row.imagesUrl[0] : ''}
                         alt=""
                         className="image"
                     />
@@ -175,7 +171,7 @@ function Product({ prop }) {
     ];
     console.log('items', items);
     return (
-        <Container className="d-flex flex-column justify-content-center ">
+        <Container className="d-flex flex-column justify-content-center product">
             {prop === 'all' && (
                 <div className="button-action">
                     <div className="d-flex  aglin-items-center mb-2 mx-5">

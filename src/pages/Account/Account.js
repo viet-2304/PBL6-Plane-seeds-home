@@ -18,7 +18,7 @@ function Account({ prop }) {
     const handleSelect = (k) => {
         navigate(location.pathname.slice(0, location.pathname.indexOf(prop)) + k);
     };
-    const [isShow, setIsShow] = useState(true);
+    const [isShow, setIsShow] = useState(false);
     const [reload, setReload] = useState(false);
     const [currentToken, setCurrentToken] = useState(localStorage.getItem('token'));
     const [currentUser, setCurrentUser] = useState({});
@@ -45,7 +45,7 @@ function Account({ prop }) {
         fetchCurrentUser();
     }, [reload]);
     useEffect(() => {
-        setCurrentUser({ ...currentUser, imageUrl: URL });
+        setCurrentUser({ ...currentUser, imageAvatar: URL });
     }, [URL]);
     console.log('URL', URL);
     const onFileChange = (e) => {
@@ -57,7 +57,8 @@ function Account({ prop }) {
         handleUpload(image, setURL);
     };
 
-    const handleClick = (type) => {
+    const handleClick = () => {
+        console.log('currentUser', currentUser);
         axios
             .post(BASE_API_URL + 'v1/users/editUser', currentUser, {
                 headers: {
@@ -66,11 +67,12 @@ function Account({ prop }) {
                 },
             })
             .then((res) => {
-                setCurrentUser(res.data);
+                setCurrentUser('res.data', res.data);
                 setReload(!reload);
                 console.log('res1: ', res.data);
+                alert('Success');
             })
-            .catch((err) => console.log('err', err));
+            .catch((err) => alert('Fail'));
     };
     return (
         <Container fluid className="account-container py-5 ">
@@ -103,8 +105,7 @@ function Account({ prop }) {
                                 </Button>
                             </div>
                             <img
-                                src={currentUser?.imageUrl ? currentUser?.imageUrl : ''}
-                                // src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
+                                src={currentUser?.imageAvatar ? currentUser?.imageAvatar : ''}
                                 alt=""
                                 className="image-product mt-3"
                             />
@@ -112,10 +113,18 @@ function Account({ prop }) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary py-2 px-4 fs-3" onClick={() => setIsShow(false)}>
+                    <Button
+                        variant="primary"
+                        className="pe-5 me-5 fs-3"
+                        onClick={() => setIsShow(false)}
+                    >
                         Close
                     </Button>
-                    <Button variant="primary" className="pe-5 me-5 fs-3" onClick={() => {}}>
+                    <Button
+                        variant="primary"
+                        className="pe-5 me-5 fs-3"
+                        onClick={() => handleClick()}
+                    >
                         Save
                     </Button>
                 </Modal.Footer>
@@ -129,17 +138,22 @@ function Account({ prop }) {
                     <Row>
                         <Col md={4} className="menu-col justify-content-center py-4 shadow">
                             <Nav variant="pills" className="flex-column">
-                                <div className="user my-3 d-flex flex-row align-items-center justify-content-center ">
+                                <div className="user my-3 d-flex flex-row align-items-center justify-content-center border-bottom pb-3">
                                     <Image
                                         className="user-image me-3"
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_mNmpqHOTakNgIaKR5bxJFfkUtiLdPBXPMw&usqp=CAU"
-                                        alt="imageuser"
+                                        src={
+                                            currentUser?.imageAvatar ? currentUser?.imageAvatar : ''
+                                        }
+                                        alt="image-user"
                                     />
                                     <div>
                                         <div className="user-name text-center">
-                                            {currentUser.userName}
+                                            {currentUser?.userName}
                                         </div>
-                                        <button className="text-center">
+                                        <button
+                                            className="text-center change-image"
+                                            onClick={() => setIsShow(true)}
+                                        >
                                             <FontAwesomeIcon icon={faPen} />
                                             Change Image
                                         </button>
@@ -262,81 +276,6 @@ function Account({ prop }) {
                                                 </div>
                                             </div>
                                             <div className="row my-5">
-                                                <label
-                                                    htmlFor="staticGender"
-                                                    className="col-sm-2 col-form-label "
-                                                >
-                                                    Gender
-                                                </label>
-                                                <div className="col-sm-10">
-                                                    <div className="form-check form-check-inline">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            name="radioDefault"
-                                                            id="radioMale"
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="radioMale"
-                                                        >
-                                                            Male
-                                                        </label>
-                                                    </div>
-                                                    <div className="form-check form-check-inline">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            name="radioDefault"
-                                                            id="radioFemale"
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="radioFemale"
-                                                        >
-                                                            Female
-                                                        </label>
-                                                    </div>
-                                                    <div className="form-check form-check-inline">
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="radio"
-                                                            name="radioDefault"
-                                                            id="radioOther"
-                                                        />
-                                                        <label
-                                                            className="form-check-label"
-                                                            htmlFor="radioOther"
-                                                        >
-                                                            Other
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row my-5">
-                                                <label
-                                                    htmlFor="birthday"
-                                                    className="col-sm-2 col-form-label "
-                                                >
-                                                    Birthday
-                                                </label>
-                                                <div className="col-sm-10">
-                                                    <input
-                                                        className="form-control"
-                                                        type="date"
-                                                        id="birthday"
-                                                        name="birthday"
-                                                        value={currentUser.date || ''}
-                                                        onChange={(e) =>
-                                                            setCurrentUser({
-                                                                ...currentUser,
-                                                                date: e.target.value,
-                                                            })
-                                                        }
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="row my-5">
                                                 <div className="d-flex justify-content-center ">
                                                     <Button cart onClick={() => handleClick()}>
                                                         Save
@@ -354,30 +293,23 @@ function Account({ prop }) {
                                             className="mb-3 d-flex justify-content-center"
                                         >
                                             <Tab eventKey="all" title="All">
-                                                <PurchaseItem />
-                                                {/* <PurchaseItem /> */}
+                                                <PurchaseItem type="all" />
                                             </Tab>
-
                                             <Tab eventKey="pending" title="Pending">
-                                                <PurchaseItem />
+                                                <PurchaseItem type="Pending" />
                                             </Tab>
                                             <Tab eventKey="toreceive" title="To Receive">
-                                                sdfd
+                                                <PurchaseItem type="Shipping" />
                                             </Tab>
                                             <Tab eventKey="completed" title="Completed">
-                                                sdfd
+                                                <PurchaseItem type="Done" />
                                             </Tab>
                                             <Tab eventKey="cancelled" title="Cancelled">
-                                                Cancelled
+                                                <PurchaseItem type="cancelled" />
                                             </Tab>
                                         </Tabs>
                                     </Container>
                                 </Tab.Pane>
-                                {/* <Tab.Pane eventKey="shop">
-                                    <Container className="col">
-                                        <div className="top-info">My Account</div>
-                                    </Container>
-                                </Tab.Pane> */}
                                 <Tab.Pane eventKey="password">
                                     <Container className="col px-4">
                                         <div className="top-info">Change Password</div>
@@ -451,7 +383,7 @@ function Account({ prop }) {
                                                 <div className="d-flex justify-content-center ">
                                                     <Button
                                                         cart
-                                                        // onClick={() => navigate(/products/${item.name})}
+                                                        // onClick={() => navigate(/products/${item.name)}
                                                     >
                                                         Save
                                                     </Button>

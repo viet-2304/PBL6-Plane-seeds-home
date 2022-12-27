@@ -48,6 +48,8 @@
     width: 50px;
     object-fit: cover;
     clip-path: circle(25px at 50% 50%);
+    border: 1px solid #333;
+    border-radius: 50%;
 }
 
 .user-info {
@@ -57,6 +59,9 @@
     color: black;
     font-weight: bold;
     font-size: 1.5rem;
+}
+.change-image {
+    background-color: transparent;
 }
 .top-info {
     font-size: 20px;

@@ -14,11 +14,11 @@ import { Link, Navigate } from 'react-router-dom';
 import routes from '../../../config/routes';
 import './StatCard.scss';
 
-const StatCard = ({ type, bg, link }) => {
+const StatCard = ({ type, bg, link, amount }) => {
     let data;
 
     //temporary
-    const amount = 100;
+    // const amount = 100;
     const diff = 20;
 
     switch (type) {
@@ -112,9 +112,7 @@ const StatCard = ({ type, bg, link }) => {
         <div className={`w-100 shadow my-3 bg-opacity-25 widget ${bg}`}>
             <div className="left">
                 <span className="title text-success">{data.title}</span>
-                <span className="counter">
-                    {data.isMoney && '$'} {amount}
-                </span>
+                <span className="counter">{amount}</span>
                 <span className="link">{data.link}</span>
             </div>
             <div className="right">

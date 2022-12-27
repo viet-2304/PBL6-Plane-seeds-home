@@ -48,7 +48,7 @@ function CartItem({ itemKey, item, handleChangeQuantity, handleDelete }) {
         <div key={itemKey} className=" border-bottom border-secondary d-flex py-3">
             <div className="col d-flex align-items-center justify-content-start">
                 <img
-                    src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
+                    src={item.imagesUrl !== [] ? item.imagesUrl[0] : ''}
                     alt=""
                     width="70px"
                     height="70px"

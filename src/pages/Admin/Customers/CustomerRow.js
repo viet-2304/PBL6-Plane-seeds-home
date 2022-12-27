@@ -9,7 +9,9 @@ const CustomerRow = ({ customer }) => {
             <td>{customer.phoneNumber}</td>
             <td id="emailBar">{customer.email}</td>
             <td>{customer.address}</td>
-            <td>{customer.active}</td>
+            <td className="bg-success bg-opacity-10">
+                {customer.active === true ? 'Active' : 'unActive'}
+            </td>
             <td>{customer.userName}</td>
             <td>
                 <img

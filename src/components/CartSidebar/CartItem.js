@@ -47,7 +47,7 @@ function CartItem({ itemKey, product, handleDelete }) {
         <tr key={itemKey} className="item-cart">
             <td>
                 <img
-                    src="https://cf.shopee.vn/file/59ced2b1371dd71a64a52af77b69d3d1"
+                    src={product.imagesUrl !== [] ? product.imagesUrl[0] : ''}
                     alt=""
                     width="60px"
                     height="60px"

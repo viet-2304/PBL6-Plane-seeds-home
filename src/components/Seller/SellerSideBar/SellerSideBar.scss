@@ -19,9 +19,18 @@
                 margin-top: 15px;
                 margin-bottom: 5px;
             }
+            svg {
+                color: #3f7652;
+            }
             .activeBtn {
                 li {
-                    background-color: #e5f0ea;
+                    background-color: #3f7652;
+                    span {
+                        color: #fff;
+                    }
+                    svg {
+                        color: #fff;
+                    }
                 }
             }
             li {
@@ -32,7 +41,13 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #e5f0ea;
+                    background-color: #3f7652;
+                    span {
+                        color: #fff;
+                    }
+                    svg {
+                        color: #fff;
+                    }
                 }
 
                 .icon {
